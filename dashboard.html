@@ -137,7 +137,7 @@
           value="Women interested in elegant fashion"
         >
 
-        <button class="generate-button" id="generateButton">
+        <button class="generate-button" id="aiaiGenerateButton">
           Generate Pinterest Content
         </button>
 
@@ -212,23 +212,23 @@
 </script>
 
 <script>
-  const generateButton = document.getElementById("generateButton");
-  const resultBox = document.getElementById("result");
-  const statusBox = document.getElementById("status");
+  const aiaiGenerateButton = document.getElementById("aiaiGenerateButton");
+  const aiaiResultBox = document.getElementById("result");
+  const aiaiaiaiStatusBox = document.getElementById("status");
 
-  generateButton.addEventListener("click", async () => {
+  aiaiGenerateButton.addEventListener("click", async () => {
     const topic = document.getElementById("topic").value.trim();
     const style = document.getElementById("style").value;
     const audience = document.getElementById("audience").value.trim();
 
     if (!topic) {
-      statusBox.textContent = "Please enter a topic first.";
+      aiaiaiaiStatusBox.textContent = "Please enter a topic first.";
       return;
     }
 
-    generateButton.disabled = true;
-    statusBox.textContent = "Creating your Pinterest content...";
-    resultBox.textContent = "";
+    aiaiGenerateButton.disabled = true;
+    aiaiaiaiStatusBox.textContent = "Creating your Pinterest content...";
+    aiaiResultBox.textContent = "";
 
     try {
       const { data, error } = await supabaseClient.functions.invoke(
@@ -245,7 +245,7 @@
 
       const content = data.content;
 
-      resultBox.replaceChildren();
+      aiaiResultBox.replaceChildren();
 
       const sections = [
         ["Title", content.title],
@@ -265,39 +265,39 @@
         text.textContent = value || "";
 
         section.append(title, text);
-        resultBox.appendChild(section);
+        aiaiResultBox.appendChild(section);
       });
 
-      statusBox.textContent = "Your content was generated and saved!";
+      aiaiaiaiStatusBox.textContent = "Your content was generated and saved!";
     } catch (error) {
       console.error(error);
-      statusBox.textContent =
+      aiaiaiaiStatusBox.textContent =
         error.message || "Something went wrong. Please try again.";
     } finally {
-      generateButton.disabled = false;
+      aiaiGenerateButton.disabled = false;
     }
   });
 </script>
 
 <script>
   
-  const aiGenerateButton = document.getElementById("generateButton");
-  const aiResultBox = document.getElementById("result");
-  const aiStatusBox = document.getElementById("status");
+  const aiaiaiGenerateButton = document.getElementById("aiaiGenerateButton");
+  const aiaiaiResultBox = document.getElementById("result");
+  const aiaiaiaiaiStatusBox = document.getElementById("status");
   
-  generateButton.addEventListener("click", async () => {
+  aiaiGenerateButton.addEventListener("click", async () => {
     const topic = document.getElementById("topic").value.trim();
     const style = document.getElementById("style").value;
     const audience = document.getElementById("audience").value.trim();
 
     if (!topic) {
-      statusBox.textContent = "Please enter a topic first.";
+      aiaiaiaiStatusBox.textContent = "Please enter a topic first.";
       return;
     }
 
-    generateButton.disabled = true;
-    statusBox.textContent = "Creating your Pinterest content...";
-    resultBox.textContent = "";
+    aiaiGenerateButton.disabled = true;
+    aiaiaiaiStatusBox.textContent = "Creating your Pinterest content...";
+    aiaiResultBox.textContent = "";
 
     try {
       const { data, error } = await supabaseClient.functions.invoke(
@@ -313,7 +313,7 @@
       }
 
       const content = data.content;
-      resultBox.replaceChildren();
+      aiaiResultBox.replaceChildren();
 
       const sections = [
         ["Title", content.title],
@@ -333,16 +333,16 @@
         text.textContent = value || "";
 
         section.append(title, text);
-        resultBox.appendChild(section);
+        aiaiResultBox.appendChild(section);
       });
 
-      statusBox.textContent = "Your content was generated and saved!";
+      aiaiaiaiStatusBox.textContent = "Your content was generated and saved!";
     } catch (error) {
       console.error(error);
-      statusBox.textContent =
+      aiaiaiaiStatusBox.textContent =
         error.message || "Something went wrong. Please try again.";
     } finally {
-      generateButton.disabled = false;
+      aiaiGenerateButton.disabled = false;
     }
   });
 </script>

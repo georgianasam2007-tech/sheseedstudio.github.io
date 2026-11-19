@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SheSeed Studio | Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 30px;
+    }
+
+    .dashboard-header {
+      margin-bottom: 40px;
+    }
+
+    .dashboard-header h1 {
+      font-size: 2.5rem;
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .dashboard-card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.06);
+    }
+
+    .dashboard-card h2 {
+      margin-top: 0;
+    }
+
+    .dashboard input,
+    .dashboard textarea,
+    .dashboard select {
+      width: 100%;
+      padding: 13px;
+      margin: 10px 0 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font: inherit;
+    }
+
+    .dashboard textarea {
+      min-height: 100px;
+    }
+
+    .generate-button {
+      background: #c2185b;
+      color: white;
+      border: none;
+      padding: 14px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .result {
+      margin-top: 25px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .result-section {
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="dashboard">
+    <header class="dashboard-header">
+      <p>YOUR CREATIVE WORKSPACE</p>
+      <h1>SheSeed Studio</h1>
+      <p>Turn your fashion ideas into Pinterest-ready content.</p>
+    </header>
+
+    <div class="dashboard-grid">
+      <section class="dashboard-card">
+        <h2>AI Content Generator</h2>
+
+        <label for="topic">What would you like to create?</label>
+        <input
+          id="topic"
+          type="text"
+          placeholder="e.g. Elegant autumn outfits"
+        >
+
+        <label for="style">Visual style</label>
+        <select id="style">
+          <option>Elegant, feminine, Mediterranean, old money</option>
+          <option>Minimalist and sophisticated</option>
+          <option>Romantic and feminine</option>
+          <option>Casual chic and effortless</option>
+        </select>
+
+        <label for="audience">Target audience</label>
+        <input
+          id="audience"
+          type="text"
+          value="Women interested in elegant fashion"
+        >
+
+        <button class="generate-button" id="generateButton">
+          Generate Pinterest Content
+        </button>
+
+        <div id="status" role="status"></div>
+      </section>
+
+      <section class="dashboard-card">
+        <h2>Your Generated Content</h2>
+        <div id="result" class="result">
+          Your generated Pinterest content will appear here.
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

@@ -280,10 +280,11 @@
 </script>
 
 <script>
-  const generateButton = document.getElementById("generateButton");
-  const resultBox = document.getElementById("result");
-  const statusBox = document.getElementById("status");
-
+  
+  const aiGenerateButton = document.getElementById("generateButton");
+  const aiResultBox = document.getElementById("result");
+  const aiStatusBox = document.getElementById("status");
+  
   generateButton.addEventListener("click", async () => {
     const topic = document.getElementById("topic").value.trim();
     const style = document.getElementById("style").value;

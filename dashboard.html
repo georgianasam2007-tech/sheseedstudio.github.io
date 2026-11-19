@@ -80,10 +80,31 @@
       }
     }
   </style>
+  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
 </head>
 
 <body>
-  <main class="dashboard">
+  <section id="loginScreen" class="dashboard">
+  <div class="dashboard-card">
+    <h1>SheSeed Studio</h1>
+    <p>Your private creative workspace</p>
+
+    <label for="email">Email address</label>
+    <input id="email" type="email" placeholder="Your email">
+
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="Your password">
+
+    <button class="generate-button" id="loginButton">
+      Log in
+    </button>
+
+    <p id="loginStatus" role="status"></p>
+  </div>
+</section>
+  <main class="dashboard" id="dashboardApp" hidden>
     <header class="dashboard-header">
       <p>YOUR CREATIVE WORKSPACE</p>
       <h1>SheSeed Studio</h1>
@@ -131,5 +152,64 @@
       </section>
     </div>
   </main>
+  
+<script>
+  const SUPABASE_URL = "https://ttosxehifynvimjdvpjn.supabase.co";
+  const SUPABASE_ANON_KEY = "sb_publishable_nNTt_u4o_ARqeb16c9hGQQ_jwEA7Uv0";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+  const loginScreen = document.getElementById("loginScreen");
+  const dashboardApp = document.getElementById("dashboardApp");
+  const loginStatus = document.getElementById("loginStatus");
+
+  async function checkSession() {
+    const { data } = await supabaseClient.auth.getSession();
+
+    if (data.session) {
+      loginScreen.hidden = true;
+      dashboardApp.hidden = false;
+    } else {
+      loginScreen.hidden = false;
+      dashboardApp.hidden = true;
+    }
+  }
+
+  document.getElementById("loginButton").addEventListener("click", async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    loginStatus.textContent = "Logging in...";
+
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      loginStatus.textContent = error.message;
+      return;
+    }
+
+    loginStatus.textContent = "";
+    await checkSession();
+  });
+
+  supabaseClient.auth.onAuthStateChange((_event, session) => {
+    if (session) {
+      loginScreen.hidden = true;
+      dashboardApp.hidden = false;
+    } else {
+      loginScreen.hidden = false;
+      dashboardApp.hidden = true;
+    }
+  });
+
+  checkSession();
+</script>
+
 </body>
 </html>

@@ -279,5 +279,72 @@
   });
 </script>
 
+<script>
+  const generateButton = document.getElementById("generateButton");
+  const resultBox = document.getElementById("result");
+  const statusBox = document.getElementById("status");
+
+  generateButton.addEventListener("click", async () => {
+    const topic = document.getElementById("topic").value.trim();
+    const style = document.getElementById("style").value;
+    const audience = document.getElementById("audience").value.trim();
+
+    if (!topic) {
+      statusBox.textContent = "Please enter a topic first.";
+      return;
+    }
+
+    generateButton.disabled = true;
+    statusBox.textContent = "Creating your Pinterest content...";
+    resultBox.textContent = "";
+
+    try {
+      const { data, error } = await supabaseClient.functions.invoke(
+        "generate-pin-content",
+        {
+          body: { topic, style, audience }
+        }
+      );
+
+      if (error) throw error;
+      if (!data || !data.success) {
+        throw new Error(data?.error || "Generation failed.");
+      }
+
+      const content = data.content;
+      resultBox.replaceChildren();
+
+      const sections = [
+        ["Title", content.title],
+        ["Description", content.description],
+        ["Keywords", (content.keywords || []).join(", ")],
+        ["Image prompt", content.image_prompt]
+      ];
+
+      sections.forEach(([heading, value]) => {
+        const section = document.createElement("div");
+        section.className = "result-section";
+
+        const title = document.createElement("h3");
+        title.textContent = heading;
+
+        const text = document.createElement("p");
+        text.textContent = value || "";
+
+        section.append(title, text);
+        resultBox.appendChild(section);
+      });
+
+      statusBox.textContent = "Your content was generated and saved!";
+    } catch (error) {
+      console.error(error);
+      statusBox.textContent =
+        error.message || "Something went wrong. Please try again.";
+    } finally {
+      generateButton.disabled = false;
+    }
+  });
+</script>
+
 </body>
 </html>
